@@ -2,33 +2,44 @@
 
 MAX = 100
 
+def get_valid_input(prompt, validation_fn, error_message):
+   while True:
+      try:
+         value = int(input(prompt))
+         if validation_fn(value):
+            return value
+         else:
+            print(error_message)
+      except ValueError:
+         print("Invalid input. Please enter a valid integer.")
+
+def get_number_of_elements():
+   return get_valid_input(
+      "Enter the number of elements (1-100): ",
+      lambda x: 1 <= x <= MAX,
+      "Invalid input. Please provide a number between 1 and 100."
+   )
+
+def get_elements(n):
+   arr = []
+   print(f"Enter {n} integers:")
+   for _ in range(n):
+      arr.append(get_valid_input(
+         "",
+         lambda x: True,
+         "Invalid input. Please enter a valid integer."
+      ))
+   return arr
+
 def calculate_sum(arr):
-   result = 0
-   for num in arr:
-      result += num
-   return result
+   return sum(arr)
 
 def main():
    try:
-      n = int(input("Enter the number of elements (1-100): "))
-      if not 1 <= n <= MAX:
-            print("Invalid input. Please provide a digit ranging from 1 to 100.")
-            exit(1)
-
-      arr = []
-
-      print(f"Enter {n} integers:")
-      for _ in range(n):
-            try:
-               arr.append(int(input()))
-            except ValueError:
-               print("Invalid input. Please enter valid integers.")
-               exit(1)
-
+      n = get_number_of_elements()
+      arr = get_elements(n)
       total = calculate_sum(arr)
-
       print("Sum of the numbers:", total)
-
    except KeyboardInterrupt:
       print("\nProgram terminated by user.")
       exit(1)
