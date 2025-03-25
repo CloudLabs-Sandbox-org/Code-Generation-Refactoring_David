@@ -1,5 +1,3 @@
-
-
 // Replace with your preferred weather API and API key
 const API_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const API_KEY = '3a9567149b9ba06b62251564ce5a7c07';
