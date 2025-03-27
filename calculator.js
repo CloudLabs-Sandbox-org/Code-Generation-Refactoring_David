@@ -1,84 +1,52 @@
-const readline = require('readline');
-
-// Calculator class implementation in JavaScript
-
-
-class Calculator {
-  // Constructor initializes the calculator
-  constructor() {
-    console.log('Calculator initialized');
-  }
-
-  // Method to add two numbers
-  add(a, b) {
+function add(a, b) {
     return a + b;
-  }
+}
 
-  // Method to subtract the second number from the first
-  subtract(a, b) {
+function subtract(a, b) {
     return a - b;
-  }
+}
 
-  // Method to multiply two numbers
-  multiply(a, b) {
+function multiply(a, b) {
     return a * b;
-  }
+}
 
-  // Method to divide the first number by the second
-  // Includes verification to prevent division by zero
-  divide(a, b) {
+function divide(a, b) {
     if (b === 0) {
-      throw new Error('Division by zero is not allowed');
+        return "Error: Division by zero is not allowed.";
     }
     return a / b;
-  }
 }
 
-// Function to get user input and perform calculations
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+function calculator() {
+    console.log("Basic Calculator");
+    console.log("Select operation:");
+    console.log("1. Add");
+    console.log("2. Subtract");
+    console.log("3. Multiply");
+    console.log("4. Divide");
 
-const calculator = new Calculator();
+    const choice = prompt("Enter choice (1/2/3/4):");
 
-function getNumbersAndOperate() {
-  rl.question('Enter the first number: ', (firstInput) => {
-    const a = parseFloat(firstInput);
-    rl.question('Enter the second number: ', (secondInput) => {
-      const b = parseFloat(secondInput);
-      rl.question(
-        'Choose an operation (add, subtract, multiply, divide): ',
-        (operation) => {
-          try {
-            let result;
-            switch (operation.toLowerCase()) {
-              case 'add':
-                result = calculator.add(a, b);
-                break;
-              case 'subtract':
-                result = calculator.subtract(a, b);
-                break;
-              case 'multiply':
-                result = calculator.multiply(a, b);
-                break;
-              case 'divide':
-                result = calculator.divide(a, b);
-                break;
-              default:
-                console.log('Invalid operation');
-                rl.close();
-                return;
-            }
-            console.log(`Result: ${result}`);
-          } catch (error) {
-            console.error(error.message);
-          }
-          rl.close();
+    if (["1", "2", "3", "4"].includes(choice)) {
+        const num1 = parseFloat(prompt("Enter first number:"));
+        const num2 = parseFloat(prompt("Enter second number:"));
+
+        let result;
+        if (choice === "1") {
+            result = add(num1, num2);
+        } else if (choice === "2") {
+            result = subtract(num1, num2);
+        } else if (choice === "3") {
+            result = multiply(num1, num2);
+        } else if (choice === "4") {
+            result = divide(num1, num2);
         }
-      );
-    });
-  });
+
+        console.log(`The result is: ${result}`);
+    } else {
+        console.log("Invalid input. Please select a valid operation.");
+    }
 }
 
-getNumbersAndOperate();
+// Run the calculator
+calculator();
